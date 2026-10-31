@@ -611,4 +611,262 @@ footer > a:last-child {
     font-size: 12px;
     font-weight: 700;
     letter-spacing: 1px;
+}/* GR8JEFF CONTACT UPGRADE */
+
+.contact-intro {
+    max-width: 550px;
+    color: var(--muted);
+    line-height: 1.8;
+    margin: 20px 0 30px;
+}
+
+.contact-actions {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.email-link {
+    color: var(--white);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.contact-details {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    margin-top: 65px;
+    padding-top: 30px;
+    border-top: 1px solid #303630;
+}
+
+.contact-details span {
+    display: block;
+    color: var(--green);
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    margin-bottom: 12px;
+}
+
+.contact-details a,
+.contact-details p {
+    color: var(--muted);
+    font-size: 13px;
+    overflow-wrap: anywhere;
+}
+
+@media (max-width: 600px) {
+    .contact-details {
+        grid-template-columns: 1fr;
+        gap: 22px;
+    }
+
+    .contact-actions {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}/* GR8JEFF PROJECT ENQUIRY FORM */
+
+.project-form {
+    max-width: 650px;
+    margin-top: 55px;
+    padding: 30px;
+    background: var(--surface);
+    border: 1px solid #303630;
+    border-radius: 6px;
+}
+
+.project-form h3 {
+    margin-bottom: 10px;
+}
+
+.project-form > p {
+    color: var(--muted);
+    margin-bottom: 25px;
+}
+
+.project-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.project-form label {
+    font-size: 12px;
+    color: var(--white);
+    margin-top: 10px;
+}
+
+.project-form input,
+.project-form select,
+.project-form textarea {
+    width: 100%;
+    padding: 14px;
+    color: var(--white);
+    background: #090b09;
+    border: 1px solid #303630;
+    border-radius: 4px;
+    font: inherit;
+    font-size: 13px;
+}
+
+.project-form textarea {
+    resize: vertical;
+}
+
+.project-form input:focus,
+.project-form select:focus,
+.project-form textarea:focus {
+    outline: 1px solid var(--green);
+}
+
+.project-form button {
+    margin-top: 15px;
+    cursor: pointer;
+}/* GR8JEFF FUTURISTIC HERO UPGRADE */
+
+.hero {
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.status-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background: #B8FF38;
+    border-radius: 50%;
+    margin-right: 7px;
+    box-shadow: 0 0 12px #B8FF38;
+}
+
+.hero h1 {
+    letter-spacing: -3px;
+    line-height: 1.05;
+}
+
+.hero h1 span {
+    color: #B8FF38;
+}
+
+.hero-description {
+    max-width: 520px;
+    line-height: 1.8;
+}
+
+.hero-trust {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    margin-top: 35px;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: #929A91;
+}
+
+.hero-trust span::before {
+    content: "✦";
+    color: #B8FF38;
+    margin-right: 7px;
+}
+
+.hero-visual {
+    position: relative;
+}
+
+.visual-card {
+    position: relative;
+    min-height: 340px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 30px;
+    border: 1px solid rgba(184, 255, 56, 0.3);
+    border-radius: 18px;
+    background:
+        radial-gradient(circle at 50% 45%,
+        rgba(184, 255, 56, 0.13),
+        transparent 55%),
+        linear-gradient(145deg, #151915, #080A08);
+    box-shadow: 0 20px 70px rgba(0, 0, 0, 0.35);
+}
+
+.visual-label,
+.visual-index {
+    color: #929A91;
+    font-size: 10px;
+    letter-spacing: 2px;
+}
+
+.visual-symbol {
+    text-align: center;
+    font-size: clamp(90px, 12vw, 150px);
+    font-weight: 800;
+    letter-spacing: -12px;
+    color: #FFFFFF;
+    text-shadow: 0 0 35px rgba(184, 255, 56, 0.12);
+}
+
+.visual-symbol span {
+    color: #B8FF38;
+}
+
+.visual-divider {
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        #B8FF38,
+        transparent
+    );
+}
+
+.visual-bottom {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    color: #B8FF38;
+    font-size: 10px;
+    letter-spacing: 2px;
+}
+
+.floating-tag {
+    position: absolute;
+    right: -15px;
+    bottom: 25px;
+    padding: 13px 18px;
+    background: #B8FF38;
+    color: #080A08;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    border-radius: 4px;
+}
+
+@media (max-width: 600px) {
+    .hero h1 {
+        letter-spacing: -1.5px;
+    }
+
+    .hero-trust {
+        gap: 12px;
+        font-size: 9px;
+    }
+
+    .visual-card {
+        min-height: 260px;
+        padding: 22px;
+    }
+
+    .floating-tag {
+        right: 5px;
+        bottom: 12px;
+    }
 }
