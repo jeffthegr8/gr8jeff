@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GR8JEFF Admin | Login</title>
+  <link rel="stylesheet" href="./css/admin.css">
+</head>
+<body>
+  <main class="login-container">
+    <section class="login-card">
+      <a class="login-brand" href="/" aria-label="GR8JEFF home">GR8<span>JEFF.</span></a>
+      <p class="subtitle">ADMIN CONTROL PANEL</p>
+
+      <form id="loginForm">
+        <label for="email">Email address</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email"
+          autocomplete="username" required>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password"
+          autocomplete="current-password" required>
+
+        <button type="submit" id="loginButton">SIGN IN</button>
+        <p id="loginMessage" role="status" aria-live="polite"></p>
+      </form>
+
+      <p class="footer-text">Secure access · GR8JEFF</p>
+    </section>
+  </main>
+
+  <script src="./js/login.js" defer></script>
+</body>
+</html>

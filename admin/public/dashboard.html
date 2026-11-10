@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GR8JEFF | Admin Dashboard</title>
+  <link rel="stylesheet" href="./css/admin.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./js/dashboard.js" defer></script>
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="sidebar">
+      <a href="#" class="brand">GR8<span>JEFF</span></a>
+      <p class="sidebar-label">MANAGEMENT</p>
+
+      <nav class="navigation">
+        <button class="nav-link active" data-section="overview">
+          <span>▦</span> Overview
+        </button>
+        <button class="nav-link" data-section="enquiries">
+          <span>✉</span> Enquiries
+        </button>
+        <button class="nav-link" data-section="portfolio">
+          <span>▣</span> Portfolio
+        </button>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <p class="sidebar-label">ADMINISTRATOR</p>
+        <p id="adminEmail" class="admin-email">Loading...</p>
+        <button id="logoutButton" class="logout-button">↗ Log out</button>
+      </div>
+    </aside>
+
+    <main class="main-content">
+
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">GR8JEFF CONTROL CENTRE</p>
+          <h1 id="pageTitle">Overview</h1>
+        </div>
+        <div class="status-indicator">
+          <span></span> ADMIN ACCESS
+        </div>
+      </header>
+
+      <section class="dashboard-section active" id="overview">
+        <div class="welcome">
+          <div>
+            <h2>Welcome back.</h2>
+            <p>Here's your workspace at a glance.</p>
+          </div>
+          <span class="welcome-mark">G8J</span>
+        </div>
+
+        <div class="stats-grid">
+          <article class="stat-card">
+            <p>Total enquiries</p>
+            <h3 id="totalEnquiries">—</h3>
+            <span>All incoming requests</span>
+          </article>
+
+          <article class="stat-card">
+            <p>Pending enquiries</p>
+            <h3 id="pendingEnquiries">—</h3>
+            <span>Awaiting response</span>
+          </article>
+
+          <article class="stat-card">
+            <p>Portfolio projects</p>
+            <h3 id="portfolioCount">—</h3>
+            <span>Published projects</span>
+          </article>
+
+          <article class="stat-card">
+            <p>Completed enquiries</p>
+            <h3 id="completedEnquiries">—</h3>
+            <span>Successfully completed</span>
+          </article>
+        </div>
+
+        <div class="content-card">
+          <div class="card-heading">
+            <div>
+              <h2>Recent enquiries</h2>
+              <p>Your latest incoming project requests.</p>
+            </div>
+            <button class="text-button" data-go="enquiries">View all →</button>
+          </div>
+
+          <div id="recentEnquiriesContainer">
+            <div class="empty-state">
+              <h3>No recent enquiries loaded</h3>
+              <p>Connect your website enquiry form to Supabase to see client requests here.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="dashboard-section" id="enquiries">
+        <div class="section-intro">
+          <h2>Project enquiries</h2>
+          <p>Review incoming requests from potential clients.</p>
+        </div>
+
+        <div class="content-card" id="enquiriesTableContainer">
+          <div class="empty-state">
+            <h3>No enquiries loaded</h3>
+            <p>Connect your website enquiry form to Supabase to see client requests here.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="dashboard-section" id="portfolio">
+        <div class="section-intro">
+          <h2>Portfolio manager</h2>
+          <p>Manage the projects showcased on the GR8JEFF website.</p>
+        </div>
+
+        <div class="content-card">
+          <div class="empty-state">
+            <div class="empty-icon">▣</div>
+            <h3>No portfolio projects loaded</h3>
+            <p>Connect this section to Supabase to add, edit, and remove projects.</p>
+          </div>
+        </div>
+      </section>
+
+      <footer class="dashboard-footer">
+        <span>GR8JEFF ADMIN</span>
+        <span>DESIGN. DEVELOP. DEPLOY.</span>
+      </footer>
+    </main>
+  </div>
+  </div>
+</body>
+</html>
