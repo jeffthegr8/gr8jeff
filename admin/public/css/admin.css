@@ -389,6 +389,94 @@ button {
   line-height: 1.7;
 }
 
+/* ENQUIRY DETAILS MODAL */
+
+.modal-overlay {
+  position: fixed;
+  z-index: 20;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow-y: auto;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.78);
+}
+
+.modal-overlay[hidden] {
+  display: none;
+}
+
+.modal-content {
+  width: min(100%, 560px);
+  max-height: min(90vh, 760px);
+  overflow-y: auto;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--panel);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.5);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.modal-header h2 {
+  font-size: 19px;
+}
+
+.modal-header button {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text);
+  font-size: 24px;
+}
+
+.modal-body {
+  display: grid;
+  gap: 15px;
+  padding: 24px;
+  color: #c3cdc6;
+  font-size: 14px;
+}
+
+.modal-body strong {
+  color: var(--text);
+}
+
+.message-box {
+  margin-top: 5px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+}
+
+.message-box h3 {
+  margin-bottom: 10px;
+  color: var(--green);
+  font-size: 13px;
+}
+
+.message-box p {
+  overflow-wrap: anywhere;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.details-button:focus-visible,
+.modal-header button:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+}
+
 /* PAGE NAVIGATION */
 
 .dashboard-section {

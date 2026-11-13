@@ -1,108 +1,94 @@
-
-// ======================================
-// GR8JEFF SUPABASE CONFIGURATION
-// ======================================
-
-const SUPABASE_URL = "https://ulwohrvxkcwlqfmjbctb.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_vY-SuuigMN-wVYytODKAbg_rkO1nftJ";
-
-const supabaseClient = window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_ANON_KEY
-);
-
-// ======================================
-// MOBILE NAVIGATION
-// ======================================
-
 const menuToggle = document.getElementById("menuToggle");
 const navMenu = document.getElementById("navMenu");
 
 if (menuToggle && navMenu) {
     menuToggle.addEventListener("click", () => {
-        navMenu.classList.toggle("active");
+        const isOpen = navMenu.classList.toggle("is-open");
+        menuToggle.setAttribute("aria-expanded", String(isOpen));
+        menuToggle.setAttribute("aria-label", isOpen ? "Close navigation" : "Open navigation");
     });
 
-    document.querySelectorAll("#navMenu a").forEach(link => {
+    navMenu.querySelectorAll("a").forEach((link) => {
         link.addEventListener("click", () => {
-            navMenu.classList.remove("active");
+            navMenu.classList.remove("is-open");
+            menuToggle.setAttribute("aria-expanded", "false");
+            menuToggle.setAttribute("aria-label", "Open navigation");
         });
     });
 }
 
-// ======================================
-// FOOTER YEAR
-// ======================================
-
 const yearElement = document.getElementById("year");
-
 if (yearElement) {
-    yearElement.textContent = new Date().getFullYear();
+    yearElement.textContent = String(new Date().getFullYear());
 }
-
-// ======================================
-// PROJECT ENQUIRY SUBMISSION
-// ======================================
 
 const projectForm = document.getElementById("projectForm");
+const formMessage = document.getElementById("formMessage");
 
-if (projectForm) {
-
+if (projectForm && formMessage) {
     projectForm.addEventListener("submit", async (event) => {
-
         event.preventDefault();
 
-        const submitButton = projectForm.querySelector(
-            'button[type="submit"]'
-        );
-
-        const formMessage = document.getElementById("formMessage");
-
-if (!formMessage) {
-    console.error("Missing formMessage element in index.html");
-    return;
-}
-        const name = document.getElementById("clientName").value.trim();
-        const email = document.getElementById("clientEmail").value.trim();
-        const service = document.getElementById("projectType").value;
-        const budget = document.getElementById("projectBudget").value;
-        const message = document.getElementById("projectMessage").value.trim();
-
-        if (!name || !email || !service || !budget || !message) {
-            formMessage.textContent = "Please complete all fields.";
-            formMessage.style.color = "#ff5555";
+        const submitButton = projectForm.querySelector('button[type="submit"]');
+        if (!submitButton) {
+            console.error("Project enquiry form is missing its submit button.");
+            formMessage.textContent = "The form could not be submitted. Please contact me by email or WhatsApp.";
+            formMessage.dataset.state = "error";
             return;
         }
 
-        // Open WhatsApp tab during the user's click to avoid popup blocking
+        if (!window.supabase?.createClient) {
+            console.error("Supabase client library did not load.");
+            formMessage.textContent = "The enquiry service is unavailable. Please contact me by email or WhatsApp.";
+            formMessage.dataset.state = "error";
+            return;
+        }
+
+        const clientName = document.getElementById("clientName");
+        const clientEmail = document.getElementById("clientEmail");
+        const projectType = document.getElementById("projectType");
+        const projectBudget = document.getElementById("projectBudget");
+        const projectMessage = document.getElementById("projectMessage");
+
+        if (!clientName || !clientEmail || !projectType || !projectBudget || !projectMessage) {
+            console.error("Project enquiry form is missing required fields.");
+            formMessage.textContent = "The form could not be submitted. Please contact me by email or WhatsApp.";
+            formMessage.dataset.state = "error";
+            return;
+        }
+
+        const name = clientName.value.trim();
+        const email = clientEmail.value.trim();
+        const service = projectType.value;
+        const budget = projectBudget.value;
+        const message = projectMessage.value.trim();
+
+        if (!name || !email || !service || !budget || !message) {
+            formMessage.textContent = "Please complete all fields before sending.";
+            formMessage.dataset.state = "error";
+            return;
+        }
+
         const whatsappTab = window.open("about:blank", "_blank");
-
         submitButton.disabled = true;
-        submitButton.textContent = "SENDING...";
-
+        submitButton.textContent = "Sending enquiry…";
         formMessage.textContent = "";
+        delete formMessage.dataset.state;
 
         try {
+            const supabaseClient = window.supabase.createClient(
+                "https://ulwohrvxkcwlqfmjbctb.supabase.co",
+                "sb_publishable_vY-SuuigMN-wVYytODKAbg_rkO1nftJ"
+            );
 
-            // Save enquiry to Supabase
             const { error } = await supabaseClient
                 .from("enquiries")
-                .insert([
-                    {
-                        name: name,
-                        email: email,
-                        service: service,
-                        budget: budget,
-                        message: message,
-                       status: "pending"
-                    }
-                ]);
+                .insert([{ name, email, service, budget, message, status: "pending" }]);
 
             if (error) {
                 throw error;
             }
 
-            // Prepare WhatsApp message
             const enquiry = `Hello GR8JEFF!
 
 I have a project enquiry.
@@ -114,42 +100,26 @@ Budget: ${budget}
 
 Project details:
 ${message}`;
-
-            const whatsappURL =
-                "https://wa.me/254741055452?text=" +
-                encodeURIComponent(enquiry);
+            const whatsappURL = `https://wa.me/254741055452?text=${encodeURIComponent(enquiry)}`;
 
             if (whatsappTab) {
                 whatsappTab.location.href = whatsappURL;
             }
 
-            formMessage.textContent =
-                "Enquiry submitted successfully! Thank you.";
-
-            formMessage.style.color = "#b8ff38";
-
             projectForm.reset();
-
+            formMessage.textContent = "Thanks for your enquiry. It has been sent.";
+            formMessage.dataset.state = "success";
         } catch (error) {
-
             if (whatsappTab) {
                 whatsappTab.close();
             }
 
-            console.error("Enquiry submission error:", error);
-
-            formMessage.textContent =
-                "Submission failed. Please try again or contact us on WhatsApp.";
-
-            formMessage.style.color = "#ff5555";
-
+            console.error("Supabase enquiry submission failed:", error);
+            formMessage.textContent = "Your enquiry could not be sent. Please try again or contact me by email or WhatsApp.";
+            formMessage.dataset.state = "error";
         } finally {
-
             submitButton.disabled = false;
-            submitButton.textContent = "Send Project Enquiry ↗";
-
+            submitButton.innerHTML = 'Send project enquiry <span aria-hidden="true">↗</span>';
         }
-
     });
-
 }
