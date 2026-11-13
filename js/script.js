@@ -1,3 +1,69 @@
+const heroHeading = document.getElementById("hero-title");
+
+if (heroHeading && !heroHeading.classList.contains("is-typing")) {
+    const headingStart = "I BUILD WEBSITES FOR ";
+    const headingAccent = "BUSINESSES IN MERU AND MAUA.";
+    const fullHeading = headingStart + headingAccent;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    if (!reducedMotion.matches) {
+        const accessibleText = document.createElement("span");
+        accessibleText.className = "typewriter-accessible";
+        accessibleText.textContent = fullHeading;
+
+        const visualText = document.createElement("span");
+        visualText.className = "typewriter-visual";
+        visualText.setAttribute("aria-hidden", "true");
+
+        const startText = document.createElement("span");
+        const accentText = document.createElement("span");
+        accentText.className = "typewriter-accent";
+        const cursor = document.createElement("span");
+        cursor.className = "typewriter-cursor";
+
+        visualText.append(startText, accentText, cursor);
+        heroHeading.dataset.typewriterText = fullHeading;
+        heroHeading.classList.add("is-typing");
+        heroHeading.replaceChildren(accessibleText, visualText);
+
+        let character = 0;
+        let timer;
+
+        const showCompleteHeading = () => {
+            window.clearTimeout(timer);
+            startText.textContent = headingStart;
+            accentText.textContent = headingAccent;
+            cursor.remove();
+        };
+
+        const typeNextCharacter = () => {
+            character += 1;
+            startText.textContent = fullHeading.slice(0, Math.min(character, headingStart.length));
+            accentText.textContent = character > headingStart.length
+                ? fullHeading.slice(headingStart.length, character)
+                : "";
+
+            if (character < fullHeading.length) {
+                timer = window.setTimeout(typeNextCharacter, 72);
+            } else {
+                cursor.remove();
+            }
+        };
+
+        const finishForReducedMotion = event => {
+            if (event.matches) showCompleteHeading();
+        };
+
+        if (typeof reducedMotion.addEventListener === "function") {
+            reducedMotion.addEventListener("change", finishForReducedMotion);
+        } else {
+            reducedMotion.addListener(finishForReducedMotion);
+        }
+
+        timer = window.setTimeout(typeNextCharacter, 72);
+    }
+}
+
 const menuToggle = document.getElementById("menuToggle");
 const navMenu = document.getElementById("navMenu");
 

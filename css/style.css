@@ -209,8 +209,50 @@ h3 {
     font-size: clamp(3rem, 6.7vw, 6.4rem);
 }
 
-.hero h1 span {
+.hero h1 > span,
+.hero h1 .typewriter-accent {
     color: var(--accent);
+}
+
+.hero h1.is-typing {
+    position: relative;
+}
+
+.hero h1.is-typing::before {
+    display: block;
+    visibility: hidden;
+    content: attr(data-typewriter-text);
+}
+
+.hero h1.is-typing .typewriter-accessible {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    clip-path: inset(50%);
+}
+
+.hero h1.is-typing .typewriter-visual {
+    position: absolute;
+    inset: 0;
+}
+
+.typewriter-cursor {
+    display: inline-block;
+    width: 1px;
+    height: 0.78em;
+    margin-left: 0.08em;
+    background: var(--accent);
+    vertical-align: -0.04em;
+    animation: typewriter-blink 1s steps(2, start) infinite;
+}
+
+@keyframes typewriter-blink {
+    to {
+        visibility: hidden;
+    }
 }
 
 .hero-location {
