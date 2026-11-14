@@ -9,12 +9,39 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const publicDirectory = path.join(__dirname, "..", "public");
 
-app.use(cors());
-app.use(express.json());
-
 if (!process.env.SUPABASE_URL || !process.env.SUPABASE_ANON_KEY) {
   throw new Error("Missing Supabase environment variables. Check your .env file.");
 }
+
+const allowedOrigins = (process.env.ADMIN_ORIGINS || "")
+  .split(",")
+  .map(origin => origin.trim())
+  .filter(Boolean);
+
+if (!allowedOrigins.length) {
+  throw new Error("Missing ADMIN_ORIGINS environment variable.");
+}
+
+for (const origin of allowedOrigins) {
+  let parsedOrigin;
+
+  try {
+    parsedOrigin = new URL(origin);
+  } catch {
+    throw new Error(`Invalid origin in ADMIN_ORIGINS: ${origin}`);
+  }
+
+  if (
+    parsedOrigin.origin !== origin ||
+    (parsedOrigin.protocol !== "https:" &&
+      !["localhost", "127.0.0.1"].includes(parsedOrigin.hostname))
+  ) {
+    throw new Error(`ADMIN_ORIGINS must contain HTTPS origins: ${origin}`);
+  }
+}
+
+app.use(cors({ origin: allowedOrigins }));
+app.use(express.json());
 
 const supabase = createClient(
   process.env.SUPABASE_URL,
@@ -80,5 +107,5 @@ app.post("/api/auth/login", async (req, res) => {
 app.use(express.static(publicDirectory));
 
 app.listen(PORT, () => {
-  console.log(`GR8JEFF Admin API running at http://localhost:${PORT}`);
+  console.log(`GR8JEFF Admin API listening on port ${PORT}`);
 });

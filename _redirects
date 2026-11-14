@@ -1,1 +1,4 @@
 /pricing  /pricing/index.html  200
+/admin  /admin/  301
+/admin/  /admin/public/index.html  200
+/admin/*  /admin/public/:splat  200

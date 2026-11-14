@@ -2,6 +2,7 @@
 const loginForm = document.getElementById("loginForm");
 const loginButton = document.getElementById("loginButton");
 const loginMessage = document.getElementById("loginMessage");
+const apiBaseUrl = window.GR8JEFF_CONFIG?.apiBaseUrl || window.location.origin;
 
 loginForm.addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -14,7 +15,7 @@ loginForm.addEventListener("submit", async (event) => {
   loginMessage.textContent = "";
 
   try {
-    const response = await fetch("http://localhost:5000/api/auth/login", {
+    const response = await fetch(`${apiBaseUrl}/api/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
